@@ -6,12 +6,12 @@
 4) link the IAM role to the s3 in the bucket policy
 //here only the putObject rule is allowed
 //different actions includes different conditions.
-example s3:x-amz-acl doesn't supports delete action.
+example s3:x-amz-acl doesn't supports bucket-level actions such as s3:PutBucket, s3:GetObject, s3:PutObjectAcl, s3:GetBucketLocation.
 test1 is the name of the 
 arn:aws:iam::774128487687:role/test1 can be found in the IAM section after role creation
 arn:aws:s3:::nirajannirajan can be found in the s3 section after the bucket creation
 /role/ is meant to be added between the name of the bucket and the name of role.
-
+<br> <br>
 {
     "Version": "2012-10-17",
     "Statement": [
