@@ -10,11 +10,8 @@ AWS.config.update({
     secretAccessKey: 'NEEH3XjFi/8LIAdNoKtWESRmmTtBB1YinwD/lRFf5'
   });//don't try this access key, i modified before commiting
 
-const s3 = new AWS.S3();
 
-
-
-const storage = multer.diskStorage({
+  const storage = multer.diskStorage({
     destination: (req, file, cb) => {
       cb(null, "images");
     },
@@ -57,7 +54,22 @@ app.post('/htmlup', upload.single('fileData'), async(req, res) => {
 
 
 
+  const params = {
+    Bucket: 'nirajannirajan',
+    Key: `uploads/${name}`,
+    Body: fileBuffer,
+    ContentType:'video/mp4',
+  };
 
+  s3.upload(params, async(err, data) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Error uploading file to S3');
+    } else {
+      console.log(`File uploaded successfully. URL: ${data.Location}`);
+      await res.status(200).send('File uploaded successfully');
+    }
+  });
 });
 
 app.listen(5000, () => {
